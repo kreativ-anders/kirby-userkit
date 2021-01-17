@@ -2,4 +2,24 @@ Title: Register
 
 ----
 
-Text: Lets get registered
+Alert: Invalid user or password
+
+----
+
+Username: User name
+
+----
+
+Username_Info: The User name is stored and used for authentification only!
+
+----
+
+Password: Password
+
+----
+
+Password_info: Entering the password once should be sufficient!?
+
+----
+
+Button: Register
