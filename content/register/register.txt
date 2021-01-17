@@ -2,15 +2,15 @@ Title: Register
 
 ----
 
-Alert: Invalid user or password
+Alert: Invalid email or password
 
 ----
 
-Username: User name
+Email: Email
 
 ----
 
-Username_Info: The User name is stored and used for authentification only!
+Email_Info: The email is stored and used for authentification only!
 
 ----
 

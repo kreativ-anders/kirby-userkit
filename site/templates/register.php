@@ -28,9 +28,9 @@
 
 <form method="post" action="<?= $page->url() ?>">
   <div>
-    <label for="email"><?= $page->username()->html() ?></label>
+    <label for="email"><?= $page->email()->html() ?></label>
     <input type="email" id="email" name="email" value="<?= esc(get('email')) ?>" required>
-    <p><i style="color: rgba(80,80,80,.5)"><?= $page->username_info()->html() ?></i></p>
+    <p><i style="color: rgba(80,80,80,.5)"><?= $page->email_info()->html() ?></i></p>
   </div>
   <div>
     <label for="password"><?= $page->password()->html() ?></label>

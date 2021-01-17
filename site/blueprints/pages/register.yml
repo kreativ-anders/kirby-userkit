@@ -5,11 +5,11 @@ fields:
   alert:
     label: Alert text
     type: text
-  username:
-    label: Label for username
-    type: text
-  username_info:
-    label: GDPR info for username
+  email:
+    label: Label for email
+    type: email
+  email_info:
+    label: GDPR info for email
     type: text
   password:
     label: Label for password

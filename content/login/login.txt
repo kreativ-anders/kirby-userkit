@@ -2,11 +2,11 @@ Title: Login
 
 ----
 
-Alert: Invalid user or password
+Alert: Invalid email or password
 
 ----
 
-Username: User name
+Email: Email
 
 ----
 

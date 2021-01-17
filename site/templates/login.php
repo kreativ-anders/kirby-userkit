@@ -28,7 +28,7 @@
 
 <form method="post" action="<?= $page->url() ?>">
   <div>
-    <label for="email"><?= $page->username()->html() ?></label>
+    <label for="email"><?= $page->email()->html() ?></label>
     <input type="email" id="email" name="email" value="<?= esc(get('email')) ?>" required>
   </div>
   <div>
