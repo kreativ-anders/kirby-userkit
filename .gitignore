@@ -46,7 +46,18 @@ site/controllers/notes.php
 
 site/models
 
-site/snippets
+site/snippets/footer.php
+site/snippets/gallery.php
+site/snippets/intro.php
+site/snippets/layout.php
+site/snippets/layouts.php
+site/snippets/note.php
+site/snippets/pagination.php
+site/snippets/prevnext.php
+site/snippets/social.php
+
+
+site/snippets/blocks
 
 site/templates/about.php
 site/templates/album.php
