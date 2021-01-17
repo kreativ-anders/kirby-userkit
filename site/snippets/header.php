@@ -84,6 +84,7 @@
       <a href="<?= url('logout') ?>"><?= $site->logout()->html() ?></a>
       <?php else: ?>
       <a <?php e($page->is('login'), 'aria-current ') ?> href="<?= url('login') ?>"><?= $site->login()->html() ?></a>
+      <a <?php e($page->is('register'), 'aria-current ') ?> href="<?= url('register') ?>"><?= $site->register()->html() ?></a>
       <?php endif ?>
       <?php snippet('social') ?>
     </nav>
