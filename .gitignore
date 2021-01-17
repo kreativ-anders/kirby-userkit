@@ -1,3 +1,62 @@
+# This is a Kirby User Management Add-On! 
+# (Based on Kirby´s Starterkit)
+# ------------
+
+index.php
+favicon.ico
+.htaccess
+composer.json
+
+assets
+
+kirby
+
+content/site.txt
+content/home
+content/1_photography
+content/2_notes
+content/3_about
+content/error
+content/sandbox
+
+site/blueprints/site.yml
+
+site/blueprints/fields
+site/blueprints/files
+site/blueprints/users
+
+site/blueprints/pages/about.yml
+site/blueprints/pages/album.yml
+site/blueprints/pages/default.yml
+site/blueprints/pages/error.yml
+site/blueprints/pages/home.yml
+site/blueprints/pages/note.yml
+site/blueprints/pages/notes.yml
+site/blueprints/pages/photography.yml
+site/blueprints/pages/albums.yml
+
+site/blueprints/sections/albums.yml
+site/blueprints/sections/notes.yml
+
+site/collections
+
+site/controllers/album.php
+site/controllers/note.php
+site/controllers/notes.php
+
+site/models
+
+site/snippets
+
+site/templates/about.php
+site/templates/album.php
+site/templates/default.php
+site/templates/home.php
+site/templates/note.php
+site/templates/notes.php
+site/templates/photography.php
+
+
 # System files
 # ------------
 
@@ -21,8 +80,7 @@ Icon
 # Cache Files
 # ---------------
 
-/site/cache/*
-!/site/cache/index.html
+/site/cache
 
 # Accounts
 # ---------------
