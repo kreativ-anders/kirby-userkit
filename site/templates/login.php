@@ -20,40 +20,24 @@
 ?>
 <?php snippet('header') ?>
 
-<article>
-  <h1 class="h1"><?= $page->title()->html() ?></h1>
-</article>
+<h1><?= $page->title()->html() ?></h1>
 
+<?php if($error): ?>
+<div class="alert"><?= $page->alert()->html() ?></div>
+<?php endif ?>
 
-
-
-    <header>
-      <p><?= $page->text()->kt() ?></p>
-    </header>
-    <form action="login" method="POST">
-      <section>
-  
-         
-            <input type="email" name="email" value="" placeholder="Email" required>
-        
-   
- 
-   
-    
-            <input type="password" name="password" value="" placeholder="Passwort" required>
-      
-      
-   
-      </section>
-      <footer>
-        <button type="submit">Login</button>
-      </footer>
-    </form>
-
-
+<form method="post" action="<?= $page->url() ?>">
+  <div>
+    <label for="email"><?= $page->username()->html() ?></label>
+    <input type="email" id="email" name="email" value="<?= esc(get('email')) ?>" required>
+  </div>
+  <div>
+    <label for="password"><?= $page->password()->html() ?></label>
+    <input type="password" id="password" name="password" value="<?= esc(get('password')) ?>" required>
+  </div>
+  <div>
+    <input type="submit" name="login" value="<?= $page->button()->html() ?>">
+  </div>
+</form>
 
 <?php snippet('footer') ?>
-
-<?php snippet('header') ?>
-
-<main>
