@@ -23,7 +23,7 @@ site/blueprints/site.yml
 
 site/blueprints/fields
 site/blueprints/files
-site/blueprints/users
+site/blueprints/users/default.yml
 
 site/blueprints/pages/about.yml
 site/blueprints/pages/album.yml

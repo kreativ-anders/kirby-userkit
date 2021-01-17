@@ -1,0 +1,4 @@
+title: User
+permissions:
+  access:
+    panel: false
