@@ -1,0 +1,5 @@
+Title: Logout
+
+----
+
+Text: Lets get logged out!
