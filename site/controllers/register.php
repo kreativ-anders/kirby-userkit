@@ -6,26 +6,27 @@ return function ($kirby) {
     go('/');
   } 
 
-  $error = null;
+  echo "Start";
   
-	if($kirby->request()->is('POST') and get('email') and get('password')) {
+  $error = false;
 
-    $error = 1;
+	if($kirby->request()->is('POST') && get('register')) {
 
-     try {
+    echo "Request";
 
-      // impersonate
-      $kirby->impersonate('kirby'); // switch to a callback function
+    $kirby = kirby();
+    $kirby->impersonate('kirby');
+
+    try {
 
       // create user
       $user = $kirby->users()->create([
         'email'     => esc(get('email')),
-        'role'      => 'visitor',
+        'role'      => 'user',
         'language'  => 'en',
         'password'  => esc(get('password'))
       ]);
 
-      // deimpersonate
       $kirby->impersonate();
 
       // login user
@@ -35,10 +36,12 @@ return function ($kirby) {
 
     } catch(Exception $e) {
     
-      $error = $e->getMessage();    
+      $error = true;  
     }
 
-  }
+  };
+  
+  echo "Ende";
     
   return [
     'error' => $error
