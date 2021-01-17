@@ -7,3 +7,7 @@ Login: Login
 ----
 
 Logout: Logout
+
+----
+
+Register: Register
