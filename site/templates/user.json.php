@@ -7,8 +7,7 @@ if($kirby->user()) {
   $bookmarks = $kirby->user()->bookmarks()->yaml();
 
   $json = [
-    'User'        => $kirby->user()->email(),
-    'Bookmarks'   => $bookmarks
+    'User'        => $kirby->user()->email()
   ];
 
 }
