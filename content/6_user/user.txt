@@ -1,1 +1,26 @@
-Title: User
+Title: User Settings
+
+----
+
+Alert: Invalid email or password
+
+----
+
+Email: New Email
+
+----
+
+Password: New Password
+
+----
+
+Button: Update User
+
+----
+
+Delete_Button: Delete Account
+
+----
+
+Delete_Warning: Are you sure? This action cannot be reversed!
+
