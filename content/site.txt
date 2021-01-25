@@ -11,3 +11,7 @@ Logout: Logout
 ----
 
 Register: Register
+
+----
+
+User: User Settings
