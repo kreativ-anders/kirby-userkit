@@ -6,17 +6,51 @@ return function ($kirby, $page) {
     go('/');
   } 
 
-  $error = null;
+  $error = false;
 
-	if($user = $kirby->user() and $kirby->request()->is('POST')) {
+  // Update
+  if($kirby->request()->is('POST') && get('update')) {
+
+    echo "Update";
+
+    // Email
+    if (V::email(get('email')) && !get('password')) {
+      
+      try {
+
+        $kirby->user()->changeEmail(get('email'));
+      
+      } catch(Exception $e) {
+      
+        $error = true;
+      }
+    }
+
+    // Password
+    if (get('password')) {
+      
+      try {
+
+        $kirby->user()->changePassword(get('password'));
+      
+      } catch(Exception $e) {
+      
+        $error = true;  
+      }
+    } 
+  }
+
+  // Delete
+  if($kirby->request()->is('POST') && get('delete')) {
 
     try {
 
-      $user->delete();
+      $kirby->user()->delete();
+      go('/');
     
     } catch(Exception $e) {
     
-      $error = 'Der Benutzer konnte nicht gelöscht werden! ' . $e->getMessage();    
+      $error = true;    
     }
   }
     
