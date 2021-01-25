@@ -81,6 +81,7 @@
       <a <?php e($item->isOpen(), 'aria-current ') ?> href="<?= $item->url() ?>"><?= $item->title()->html() ?></a>
       <?php endforeach ?>
       <?php if ($user = $kirby->user()): ?>
+        <a <?php e($page->is('user'), 'aria-current ') ?> href="<?= url('user') ?>"><?= $site->user()->html() ?></a>
       <a href="<?= url('logout') ?>"><?= $site->logout()->html() ?></a>
       <?php else: ?>
       <a <?php e($page->is('login'), 'aria-current ') ?> href="<?= url('login') ?>"><?= $site->login()->html() ?></a>
