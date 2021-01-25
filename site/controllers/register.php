@@ -5,14 +5,10 @@ return function ($kirby) {
   if($kirby->user()) {
     go('/');
   } 
-
-  echo "Start";
   
   $error = false;
 
 	if($kirby->request()->is('POST') && get('register')) {
-
-    echo "Request";
 
     $kirby = kirby();
     $kirby->impersonate('kirby');
@@ -40,9 +36,7 @@ return function ($kirby) {
     }
 
   };
-  
-  echo "Ende";
-    
+      
   return [
     'error' => $error
   ];
