@@ -30,12 +30,12 @@
   <div>
     <label for="email"><?= $page->email()->html() ?></label>
     <input type="email" id="email" name="email" value="<?= esc(get('email')) ?>" required>
-    <p><i style="color: rgba(80,80,80,.5)"><?= $page->email_info()->html() ?></i></p>
+    <p><i style="color: grey"><?= $page->email_info()->html() ?></i></p>
   </div>
   <div>
     <label for="password"><?= $page->password()->html() ?></label>
     <input type="password" id="password" name="password" value="<?= esc(get('password')) ?>" required>
-    <p><i style="color: rgba(80,80,80,.5)"><?= $page->password_info()->html() ?></i></p>
+    <p><i style="color: grey"><?= $page->password_info()->html() ?></i></p>
   </div>
   <div>
     <input type="submit" name="register" value="<?= $page->button()->html() ?>">
@@ -43,6 +43,3 @@
 </form>
 
 <?php snippet('footer') ?>
-
-
-
