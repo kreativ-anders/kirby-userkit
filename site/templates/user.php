@@ -2,41 +2,44 @@
 <?php snippet('intro') ?>
 <?php snippet('notification') ?>
 
-<header>
-  <p><i><?= $page->title()->html() ?></i></p>
-</header>
+<form method="post" action="<?= $page->url() ?>">
+  <fieldset>
+    <legend><?= $kirby->user()->email() ?></legend>
 
-<?php if($error): ?>
-<div class="alert"><?= $page->alert()->html() ?></div>
-<?php endif ?>
-
-<section>
-  <form action="" method="POST">
-    <fieldset>
-      <legend><?= $page->user()->email(); ?></legend>
+    <section>
       <label for="email"><?= $page->email()->html() ?></label>
-      <input class="input" name="email" type="email" placeholder="<?= (get('email'))? get('email') : $kirby->user()->email() ?>">
-      <br>
+      <input type="email" id="email" name="email" value="<?= esc(get('email')) ?>"
+        placeholder="<?= (get('email'))? get('email') : $kirby->user()->email() ?>" autocomplete="email" required>
+    </section>
+
+    <section>
       <label for="password"><?= $page->password()->html() ?></label>
-      <input class="input" type="password" name="password" pattern=".{8,}" placeholder="<?= $page->password()->html() ?>">
-      <br>
+      <input type="password" id="password" name="password" value="<?= esc(get('password')) ?>"
+        placeholder="<?= $page->password()->html() ?>" autocomplete="new-password" required>
+    </section>
+
+    <section>
       <input type="submit" name="update" value="<?= $page->button()->html() ?>">
-    </fieldset>
-  </form>
+    </section>
 
+  </fieldset>
+</form>
 
-</section>
-<hr>
-<footer>
-  <ul>
-    <li><a href="user.json" target="_blank">meine Daten als JSON anfordern</a></li>
-    <li><a href="user.csv" class="button" target="_blank">meine Daten als CSV anfordern</a></li>
-  </ul>
-  <form action="user" method="POST" onsubmit="return confirm('<?= $page->delete_warning()->html(); ?>');">
-    <div class="buttons">
-      <input type="submit" name="delete" value="<?= $page->delete_button()->email(); ?>" />
-    </div>
-  </form>
-</footer>
+<p>
+  <?= $page->export()->html() ?> ( <a href="user.json" target="_blank"><abbr
+      title="JavaScript Object Notation">JSON</abbr></a> | <a href="user.csv" target="_blank"><abbr
+      title="Comma-Separated Values">CSV</abbr></a> )
+</p>
+
+<form method="post" action="<?= $page->url() ?>" onsubmit="return confirm('<?= $page->delete_warning()->html() ?>');">
+  <fieldset>
+    <legend><?=$page->danger()->html() ?></legend>
+
+    <section>
+      <input type="submit" name="delete" value="<?= $page->delete_button()->email() ?>">
+    </section>
+
+  </fieldset>
+</form>
 
 <?php snippet('footer') ?>
