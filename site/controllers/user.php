@@ -8,12 +8,10 @@ return function ($kirby, $page) {
 
   $error = false;
 
-  // Update
-  if($kirby->request()->is('POST') && get('update')) {
+  // UPDATE USER
+  if($kirby->request()->is('post') && get('update')) {
 
-    echo "Update";
-
-    // Email
+    // EMAIL
     if (V::email(get('email')) && !get('password')) {
       
       try {
@@ -26,7 +24,7 @@ return function ($kirby, $page) {
       }
     }
 
-    // Password
+    // PASSWORD
     if (get('password')) {
       
       try {
@@ -40,8 +38,8 @@ return function ($kirby, $page) {
     } 
   }
 
-  // Delete
-  if($kirby->request()->is('POST') && get('delete')) {
+  // DELETE USER
+  if($kirby->request()->is('post') && get('delete')) {
 
     try {
 
