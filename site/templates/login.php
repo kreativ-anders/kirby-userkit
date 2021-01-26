@@ -1,10 +1,6 @@
 <?php snippet('header') ?>
-
-<h1><?= $page->title()->html() ?></h1>
-
-<?php if($error): ?>
-<div class="alert"><?= $page->alert()->html() ?></div>
-<?php endif ?>
+<?php snippet('intro') ?>
+<?php snippet('notification') ?>
 
 <form method="post" action="<?= $page->url() ?>">
   <div>
