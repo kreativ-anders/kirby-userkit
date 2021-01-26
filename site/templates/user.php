@@ -1,5 +1,6 @@
 <?php snippet('header') ?>
-
+<?php snippet('intro') ?>
+<?php snippet('notification') ?>
 
 <header>
   <p><i><?= $page->title()->html() ?></i></p>
