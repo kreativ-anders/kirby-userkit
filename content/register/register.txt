@@ -10,15 +10,7 @@ Email: Email
 
 ----
 
-Email_Info: The email is stored and used for authentification only!
-
-----
-
 Password: Password
-
-----
-
-Password_info: Entering the password once should be sufficient!?
 
 ----
 

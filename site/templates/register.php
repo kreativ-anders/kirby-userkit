@@ -10,14 +10,12 @@
       <label for="email"><?= $page->email()->html() ?></label>
       <input type="email" id="email" name="email" value="<?= esc(get('email')) ?>" autocomplete="email" autofocus
         required>
-      <p><i><?= $page->email_info()->html() ?></i></p>
     </section>
 
     <section>
       <label for="password"><?= $page->password()->html() ?></label>
       <input type="password" id="password" name="password" value="<?= esc(get('password')) ?>"
         autocomplete="new-password" required>
-      <p><i><?= $page->password_info()->html() ?></i></p>
     </section>
 
     <section>
