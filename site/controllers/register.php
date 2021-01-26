@@ -8,14 +8,14 @@ return function ($kirby) {
   
   $error = false;
 
-	if($kirby->request()->is('POST') && get('register')) {
+	if($kirby->request()->is('post') && get('register')) {
 
     $kirby = kirby();
     $kirby->impersonate('kirby');
 
     try {
 
-      // create user
+      // CREATE USER
       $user = $kirby->users()->create([
         'email'     => esc(get('email')),
         'role'      => 'user',
@@ -25,7 +25,7 @@ return function ($kirby) {
 
       $kirby->impersonate();
 
-      // login user
+      // LOGIN USER
       if($user and $user->login(get('password'))) {
         go();
       }   
@@ -34,7 +34,6 @@ return function ($kirby) {
     
       $error = true;  
     }
-
   };
       
   return [
