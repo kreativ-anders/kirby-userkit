@@ -18,6 +18,14 @@ Button: Update User
 
 ----
 
+Export: Export and download YOUR data:
+
+----
+
+Danger: Danger Zone
+
+----
+
 Delete_Button: Delete Account
 
 ----
