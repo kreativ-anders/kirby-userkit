@@ -14,4 +14,4 @@ Password: Password
 
 ----
 
-Button: Log in
+Button: Login
