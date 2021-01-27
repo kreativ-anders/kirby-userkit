@@ -9,13 +9,13 @@
     <section>
       <label for="email"><?= $page->email()->html() ?></label>
       <input type="email" id="email" name="email" value="<?= esc(get('email')) ?>"
-        placeholder="<?= (get('email'))? get('email') : $kirby->user()->email() ?>" autocomplete="email" required>
+        placeholder="<?= (get('email'))? get('email') : $kirby->user()->email() ?>" autocomplete="email">
     </section>
 
     <section>
       <label for="password"><?= $page->password()->html() ?></label>
       <input type="password" id="password" name="password" value="<?= esc(get('password')) ?>"
-        placeholder="<?= $page->password()->html() ?>" autocomplete="new-password" required>
+        placeholder="<?= $page->password()->html() ?>" autocomplete="new-password">
     </section>
 
     <section>
