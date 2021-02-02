@@ -6,7 +6,6 @@ A functional, lean, and unstyled Kirby User Management Add-On (Pre-Release) for 
 
 **Functionality** | **Comment**
 ---- | ----
-Content from cell 1 | Content from cell 2
 Register / Login| Yes
 Logout | Virtual
 Change Email | Yep
