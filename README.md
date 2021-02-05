@@ -27,7 +27,7 @@ Also this kind of Add-On adapts way more easy to **YOUR** project.
 
 ## Notes:
 This Add-On is built for Kirby CMS based on **Kirby´s Starterkit**. 
-In case you are using Kirby´s Plainkit ensure to add the pages/links for the follwing pages somewhere in your snippets or templates!
+In case you are using Kirby´s Plainkit ensure to add the pages/links for the following pages somewhere in your snippets or templates!
 
 - Register 
 - Login
@@ -40,4 +40,4 @@ In case you are using Kirby´s Plainkit ensure to add the pages/links for the fo
 
 ## Support
 
-In case this Add-On safed you some time and energy consider to support kreativ-anders by either purchasing the latest release on [Gumroad](https://gumroad.com/l/MFhDM) or become a **GitHub Sponsor**.
+In case this Add-On saved you some time and energy consider supporting kreativ-anders by purchasing the latest release on [Gumroad](https://gumroad.com/l/MFhDM), donating via [PayPal](https://paypal.me/kreativanders), or becoming a **GitHub Sponsor**.
