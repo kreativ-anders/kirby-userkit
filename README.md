@@ -13,7 +13,6 @@ Change Password | Sure
 Export Data | CSV & JSON
 Dedicated Role | Of course
 CSS | Nope
-Validation | To Do
 Success Messages | Not yet
 
 ## Why an Add-On?
