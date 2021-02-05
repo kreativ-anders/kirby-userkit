@@ -16,7 +16,7 @@ CSS | Nope
 Success Messages | Not yet
 
 ## Why an Add-On?
-IMHO it does not make sense due to interoperability. 
+IMHO a Plug-in does not make sense due to interoperability. 
 Also this kind of Add-On adapts way more easy to **YOUR** project.
 
 ## Installation:
