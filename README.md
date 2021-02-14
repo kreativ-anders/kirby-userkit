@@ -42,4 +42,4 @@ In case you are using Kirby´s Plainkit ensure to add the pages/links for the fo
 
 ## Support
 
-In case this Add-On saved you some time and energy consider supporting kreativ-anders by purchasing the latest release on [Gumroad](https://gumroad.com/l/MFhDM), donating via [PayPal](https://paypal.me/kreativanders), or becoming a **GitHub Sponsor**.
+In case this Add-On saved you some time and energy consider supporting kreativ-anders by donating via [PayPal](https://paypal.me/kreativanders) or becoming a **GitHub Sponsor**.
