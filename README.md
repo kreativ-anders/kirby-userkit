@@ -28,7 +28,8 @@ Also this kind of Add-On adapts way more easy to **YOUR** project.
 
 
 ## Notes:
-This Add-On is built for Kirby CMS based on **Kirby´s Starterkit**. 
+This Add-On is built for Kirby CMS based on **Kirby´s Starterkit Version 3.5.0**. 
+
 In case you are using Kirby´s Plainkit ensure to add the pages/links for the following pages somewhere in your snippets or templates!
 
 - Register 
