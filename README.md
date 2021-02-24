@@ -49,6 +49,9 @@ In case you are using Kirby´s Plainkit ensure to add the pages/links for the fo
 
 *Go to https://getkirby.com/buy*
 
+## Disclaimer
+The source code is provided "as is" with no guarantee. Use it at your own risk and always test it yourself before using it in a production environment. If you find any issues, please create a new issue.
+
 ## Support
 
 In case this Add-On saved you some time and energy consider supporting kreativ-anders by donating via [PayPal](https://paypal.me/kreativanders) or becoming a **GitHub Sponsor**.
