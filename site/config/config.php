@@ -9,10 +9,17 @@
  */
 return [
   'debug' => true,
-	'panel' =>[
-		'install' => true
-	],
-	'routes' => [
+  'panel' =>[
+    'install' => true
+  ],
+  'hooks' => [
+    'user.login:after' => function ($user, $session) {
+      $user->update([
+        'lastLogin' => date("m.d.Y")
+      ]);
+    }
+  ],
+  'routes' => [
     [
       'pattern' => 'logout',
       'action'  => function() {
