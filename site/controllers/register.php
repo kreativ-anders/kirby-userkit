@@ -6,37 +6,78 @@ return function ($kirby) {
     go('/');
   } 
   
-  $error = false;
+  $error = null;
+  $alert = null;
 
 	if($kirby->request()->is('post') && get('register')) {
 
-    $kirby = kirby();
-    $kirby->impersonate('kirby');
+    $data = [
+      'email'     => esc(get('email')),
+      'password'  => esc(get('password'))
+    ];
 
-    try {
+    $rules = [
+      'email'     => ['required', 'email'],
+      'password'  => ['required', 'minLength' => 8]
+    ];
 
-      // CREATE USER
-      $user = $kirby->users()->create([
-        'email'     => esc(get('email')),
-        'role'      => 'user',
-        'language'  => 'en',
-        'password'  => esc(get('password'))
-      ]);
+    $messages = [
+      'email'     => 'Please enter a valid email adress',
+      'password'  => 'Please enter a valid password'
+    ];
 
-      $kirby->impersonate();
+    // INVALID DATA
+    if($invalid = invalid($data, $rules, $messages)) {
 
-      // LOGIN USER
-      if($user and $user->login(get('password'))) {
-        go();
-      }   
+      $alert = $invalid;
+      $error = true;
 
-    } catch(Exception $e) {
-    
-      $error = true;  
+    // VALID DATA
+    } else {
+
+      $kirby = kirby();
+      $kirby->impersonate('kirby');
+
+      try {
+
+        // CREATE USER
+        $user = $kirby->users()->create([
+          'email'     => $data['email'],
+          'role'      => 'user',
+          'language'  => 'en',
+          'password'  => $data['password']
+        ]);
+
+        $kirby->impersonate(); 
+
+      } catch(Exception $e) {
+
+        if(option('debug')) {
+
+          $alert['error'] = 'The user could not be created: ' . $e->getMessage();
+        }
+        else {
+
+          $alert['error'] = 'The user could not be created!';
+        }
+      }
+
+      // SUCCESSFUL
+      if (empty($alert) === true) {
+
+        // LOGIN USER
+        if($user and $user->login($data['password'])) {
+          go();
+        }  
+
+        $data = [];
+      }
     }
   };
       
   return [
-    'error' => $error
+    'error'   => $error,
+    'alert'   => $alert,
+    'data'    => $data ?? false
   ];
 };
