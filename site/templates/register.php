@@ -15,7 +15,7 @@
     <section>
       <label for="password"><?= $page->password()->html() ?></label>
       <input type="password" id="password" name="password" value="<?= $data['password'] ?? '' ?>" minlength="8" autocomplete="new-password" required>
-      <?= isset($alert['password']) ? '<span class="alert error">' . html($alert['password']) . '</span>' : '' ?>
+      <?= isset($alert['password']) ? html($alert['password']) : '' ?>
     </section>
 
     <section>
