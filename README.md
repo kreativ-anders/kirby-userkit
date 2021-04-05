@@ -20,7 +20,9 @@ Change Password | Sure
 Export Data | CSV & JSON
 Dedicated Role | Of course
 CSS | Nope
-Success Messages | Not yet. Best is to do it manually to adapt to **YOUR** way of working.
+Data Validation | Yes
+Success Messages | Partly (Best is to do it manually to adapt to **YOUR** way of working.)
+Messages | Mix of hardcoded and page content
 
 ## Why not use login with Google/Facebook/etc.?
 Short answer: Privacy! An individual solution like this keeps it simple and create a stronger bond between you and your visitors.
