@@ -8,15 +8,14 @@
 
     <section>
       <label for="email"><?= $page->email()->html() ?></label>
-      <input type="email" id="email" name="email" value="<?= esc(get('email')) ?>" autocomplete="email" autofocus
-        required>
+      <input type="email" id="email" name="email" value="<?= $data['email'] ?? '' ?>" autocomplete="email" autofocus required>
+      <?= isset($alert['email']) ? html($alert['email']) : '' ?>
     </section>
 
     <section>
       <label for="password"><?= $page->password()->html() ?></label>
-      <input type="password" id="password" name="password" value="<?= esc(get('password')) ?>"
-        autocomplete="current-password" required>
-      <p><i><?= $page->password_info()->html() ?></i></p>
+      <input type="password" id="password" name="password" value="<?= $data['password'] ?? '' ?>" autocomplete="current-password" required>
+      <?= isset($alert['password']) ? html($alert['password']) : '' ?>
     </section>
 
     <section>
