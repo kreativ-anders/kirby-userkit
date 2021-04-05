@@ -13,7 +13,7 @@ A functional, lean, and unstyled Kirby User Management Add-On (Pre-Release) for 
 
 **Functionality** | **Comment**
 ---- | ----
-Register / Login| Yes
+Register / Login| Yes (Log last Login)
 Logout | Virtual
 Change Email | Yep
 Change Password | Sure
