@@ -6,34 +6,82 @@ return function ($kirby, $page) {
     go('/');
   } 
 
-  $error = false;
+  $error = null;
+  $alert = null;
 
   // UPDATE USER
   if($kirby->request()->is('post') && get('update')) {
 
-    // EMAIL
-    if (V::email(get('email')) && !get('password')) {
-      
-      try {
+    $data = [
+      'email'     => esc(get('email')),
+      'password'  => esc(get('password'))
+    ];
 
-        $kirby->user()->changeEmail(get('email'));
-      
-      } catch(Exception $e) {
-      
-        $error = true;
+    $rules = [
+      'email'     => ['email'],
+      'password'  => ['minLength' => 8]
+    ];
+
+    $messages = [
+      'email'     => 'Please enter a valid email adress',
+      'password'  => 'Please enter an eight character password'
+    ];
+
+    // INVALID DATA
+    if($invalid = invalid($data, $rules, $messages)) {
+
+      $alert = $invalid;
+      $error = true;
+
+    // VALID DATA
+    } else {
+
+      // EMAIL
+      if (V::email($data['email']) && !get('password')) {
+        
+        try {
+
+          $kirby->user()->changeEmail($data['email']);
+          $success = 'Your email has been changed!';
+        
+        } catch(Exception $e) {
+        
+          if(option('debug')) {
+
+            $alert['error'] = 'The user email could not be changed: ' . $e->getMessage();
+          }
+          else {
+  
+            $alert['error'] = 'The user email could not be changed!';
+          }
+        }
       }
-    }
 
-    // PASSWORD
-    if (get('password')) {
-      
-      try {
+      // PASSWORD
+      if ($data['password']) {
+        
+        try {
 
-        $kirby->user()->changePassword(get('password'));
-      
-      } catch(Exception $e) {
-      
-        $error = true;  
+          $kirby->user()->changePassword($data['password']);
+          $success = 'Your password has been changed!';
+        
+        } catch(Exception $e) {
+        
+          if(option('debug')) {
+
+            $alert['error'] = 'The user password could not be changed: ' . $e->getMessage();
+          }
+          else {
+  
+            $alert['error'] = 'The user password could not be changed!';
+          } 
+        }
+      }
+
+      // SUCCESSFUL
+      if (empty($alert) === true) {
+
+        $error = null;
       }
     } 
   }
@@ -48,11 +96,21 @@ return function ($kirby, $page) {
     
     } catch(Exception $e) {
     
-      $error = true;    
+      if(option('debug')) {
+
+        $alert['error'] = 'The user could not be deleted: ' . $e->getMessage();
+      }
+      else {
+
+        $alert['error'] = 'The user could not be deleted!';
+      }     
     }
   }
     
   return [
-    'error' => $error
+    'error'   => $error,
+    'alert'   => $alert,
+    'data'    => $data ?? false,
+    'success' => $success ?? false
   ];
 };

@@ -2,20 +2,22 @@
 <?php snippet('intro') ?>
 <?php snippet('notification') ?>
 
+<?= $success ?? '' ?>
+
 <form method="post" action="<?= $page->url() ?>">
   <fieldset>
-    <legend><?= $kirby->user()->email() ?></legend>
+    <legend><?= $data['email'] ?? $kirby->user()->email() ?></legend>
 
     <section>
       <label for="email"><?= $page->email()->html() ?></label>
-      <input type="email" id="email" name="email" value="<?= esc(get('email')) ?>"
-        placeholder="<?= (get('email'))? get('email') : $kirby->user()->email() ?>" autocomplete="email">
+      <input type="text" id="email" name="email" value="<?= $data['email'] ?? '' ?>" placeholder="<?= $data['email'] ?? $kirby->user()->email() ?>" autocomplete="email">
+      <?= isset($alert['email']) ? html($alert['email']) : '' ?>
     </section>
 
     <section>
       <label for="password"><?= $page->password()->html() ?></label>
-      <input type="password" id="password" name="password" value="<?= esc(get('password')) ?>"
-        placeholder="<?= $page->password()->html() ?>" autocomplete="new-password">
+      <input type="password" id="password" name="password" value="<?= $data['password'] ?? '' ?>" placeholder="<?= $page->password()->html() ?>" autocomplete="new-password">
+      <?= isset($alert['password']) ? html($alert['password']) : '' ?>
     </section>
 
     <section>
@@ -26,9 +28,7 @@
 </form>
 
 <p>
-  <?= $page->export()->html() ?> ( <a href="user.json" target="_blank"><abbr
-      title="JavaScript Object Notation">JSON</abbr></a> | <a href="user.csv" target="_blank"><abbr
-      title="Comma-Separated Values">CSV</abbr></a> )
+  <?= $page->export()->html() ?> ( <a href="user.json" target="_blank"><abbr title="JavaScript Object Notation">JSON</abbr></a> | <a href="user.csv" target="_blank"><abbr title="Comma-Separated Values">CSV</abbr></a> )
 </p>
 
 <form method="post" action="<?= $page->url() ?>" onsubmit="return confirm('<?= $page->delete_warning()->html() ?>');">
