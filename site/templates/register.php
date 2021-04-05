@@ -8,7 +8,7 @@
 
     <section>
       <label for="email"><?= $page->email()->html() ?></label>
-      <input type="text" id="email" name="email" value="<?= $data['email'] ?? '' ?>" autocomplete="email" autofocus
+      <input type="email" id="email" name="email" value="<?= $data['email'] ?? '' ?>" autocomplete="email" autofocus
         required>
       <?= isset($alert['email']) ? html($alert['email']) : '' ?>
     </section>
