@@ -12,6 +12,7 @@ return [
   'panel' =>[
     'install' => true
   ],
+  'user.email.activation' => false,
   'hooks' => [
     'user.login:after' => function ($user, $session) {
       $user->update([
