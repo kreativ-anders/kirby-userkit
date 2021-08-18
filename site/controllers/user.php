@@ -9,6 +9,12 @@ return function ($kirby, $page) {
   $error = null;
   $alert = null;
 
+  // CHECK ACCOUNT ACTIVATION
+  if(filter_var($kirby->user()->emailActivation(), FILTER_VALIDATE_BOOLEAN) != true) {
+
+    $alert['error'] = 'Please check your emails to activate the account.';
+  }
+
   // UPDATE USER
   if($kirby->request()->is('post') && get('update')) {
 
