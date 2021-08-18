@@ -13,7 +13,8 @@ A functional, lean, and unstyled Kirby User Management Add-On (Pre-Release) for 
 
 **Functionality** | **Comment**
 ---- | ----
-Register / Login| Yes (Log last Login)
+Register / Login| Yes
+Activation by Email | Yes (Not by dafault)
 Logout | Virtual
 Change Email | Yep
 Change Password | Sure
@@ -36,8 +37,15 @@ Also this kind of Add-On adapts way more easy to **YOUR** project.
 1. Paste (overwrite) the folder *content* and *site* on top of the root folder of your Kirby installation.
 1. Done!
 
+### Configuration
+- Set `email` config (see [Kirby email options](https://getkirby.com/docs/reference/system/options/email))
+- Set `user.email.activation` config to true (default false).
+- Set `user.email.activation.sender` config email sender (mandatory when email activation is enabled).
+- Set `user.email.activation.subject` config email subject (mandatory when email activation is enabled).
+- Change activation token length in `register.php` controller (default 12).
+
 ## Notes:
-This Add-On is built for Kirby CMS based on **Kirby´s Starterkit Version 3.5.0**. 
+This Add-On is built for Kirby CMS based on **Kirby´s Starterkit Version 3.5.7.1**. 
 
 In case you are using Kirby´s Plainkit ensure to add the pages/links for the following pages somewhere in your snippets or templates!
 
@@ -45,6 +53,13 @@ In case you are using Kirby´s Plainkit ensure to add the pages/links for the fo
 - Login
 - Logout
 - User 
+
+> Last Login have been removed since hooks make the life more difficult.
+
+The user will be logged in even the account is not activated by email! 
+You can check `$kirby->user()->emailActivation()` for disabling certain features, pages etc.
+
+To change the email template go to `templates\email\account-activation.*.php`.
 
 ### Kirby CMS Licence 
 **Kirby CMS requires a dedicated licence:**
