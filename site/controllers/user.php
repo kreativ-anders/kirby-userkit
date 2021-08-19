@@ -50,14 +50,18 @@ return function ($kirby, $page) {
           $kirby->user()->changeEmail($data['email']);
           $success = 'Your email has been changed!';
 
+          // TOKEN FOR ACCOUNT RE-ACTIVATION
+          $token = Str::random(16);
+
           $kirby->user()->update([
-            'emailActivation' => false
+            'emailActivation'       => false,
+            'emailActivationToken'  => $token
           ]);
 
           // ACTIVATE ACCOUNT BY EMAIL IF ENABLED
           if (option('user.email.activation', false) === true) {
 
-            $link = $kirby->site()->url() . "/user/activate/" . $kirby->user()->emailActivationToken()->toString();
+            $link = $kirby->site()->url() . "/user/activate/" . $token;
 
             $email = $kirby->email([
               'to'       => $data['email'],
