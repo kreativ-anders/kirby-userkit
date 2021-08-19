@@ -12,7 +12,7 @@ return [
   'panel' =>[
     'install' => true
   ],
-  'user.email.activation' => false,
+  'user.email.activation' => true,
   'user.email.activation.sender' => '...',
   'user.email.activation.subject' => 'Account Activation Link',
   'routes' => [
@@ -29,15 +29,19 @@ return [
       }
     ],
     [
-      'pattern' => 'user/activate/(:all)/(:alphanum)',
-      'action'  => function($email, $token) {
+      'pattern' => 'user/activate/(:alphanum)',
+      'action'  => function($token) {
 
-        $kirby   = kirby();
+        if (option('user.email.activation', false) === false) {
+          go();
+        }
+
+        $kirby = kirby();
         $kirby->impersonate('kirby');
 
-        if ($user = $kirby->user($email)) {
+        if ($user = $kirby->users()->findBy('emailActivationToken', $token)) {
 
-          if ($user->emailActivation()->toString() === Str::toType($token, 'string')) {
+          if ($user->emailActivationToken()->toString() === Str::toType($token, 'string')) {
 
             $user->update([
               'emailActivation' => true
@@ -50,6 +54,7 @@ return [
           else {
             return false;
             //go('CUSTOM_ERROR_ACTIVATION_PAGE');
+            //return page('CUSTOM_ERROR_ACTIVATION_PAGE');
           }
           
         }
@@ -66,7 +71,7 @@ return [
       'security' => 'tls',
       'auth' => true,
       'username' => '...',
-      'password' => '...'
+      'password' => '..'
     ]
   ]
 ];
