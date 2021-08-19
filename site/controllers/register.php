@@ -10,7 +10,7 @@ return function ($kirby) {
   $alert = null;
 
   // TOKEN FOR ACCOUNT ACTIVATION
-  $token = Str::random(12);
+  $token = Str::random(16);
 
 	if($kirby->request()->is('post') && get('register')) {
 
@@ -55,7 +55,8 @@ return function ($kirby) {
         if (option('user.email.activation', false) === true) {
           
           $user->update([
-            'emailActivation' => $token
+            'emailActivation'       => false,
+            'emailActivationToken'  => $token
           ]);
         }
 
@@ -79,7 +80,7 @@ return function ($kirby) {
         // ACTIVATE ACCOUNT BY EMAIL IF ENABLED
         if (option('user.email.activation', false) === true) {
 
-          $link = $kirby->site()->url() . "/user/activate/" . $data['email'] . "/" . $token;
+          $link = $kirby->site()->url() . "/user/activate/" . $token;
 
           $email = $kirby->email([
             'to'       => $data['email'],
