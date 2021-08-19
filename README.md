@@ -54,12 +54,14 @@ In case you are using Kirby´s Plainkit ensure to add the pages/links for the fo
 - Logout
 - User 
 
-> Last Login have been removed since hooks make the life more difficult.
+> Last Login have been removed since hooks make life more difficult.
 
-The user will be logged in even the account is not activated by email! 
+The user will be logged in even the account is not activated by email yet! 
 You can check `$kirby->user()->emailActivation()` for disabling certain features, pages etc.
 
 To change the email template go to `templates\email\account-activation.*.php`.
+
+In case the user changes the email adress teh activation status is set to `false`and another email will be sent.
 
 ### Kirby CMS Licence 
 **Kirby CMS requires a dedicated licence:**
