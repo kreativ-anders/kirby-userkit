@@ -12,13 +12,9 @@ return [
   'panel' =>[
     'install' => true
   ],
-  'hooks' => [
-    'user.login:after' => function ($user, $session) {
-      $user->update([
-        'lastLogin' => date("m.d.Y")
-      ]);
-    }
-  ],
+  'user.email.activation' => true,
+  'user.email.activation.sender' => '...',
+  'user.email.activation.subject' => 'Account Activation Link',
   'routes' => [
     [
       'pattern' => 'logout',
@@ -31,6 +27,51 @@ return [
         go('login');
 
       }
+    ],
+    [
+      'pattern' => 'user/activate/(:alphanum)',
+      'action'  => function($token) {
+
+        if (option('user.email.activation', false) === false) {
+          go();
+        }
+
+        $kirby = kirby();
+        $kirby->impersonate('kirby');
+
+        if ($user = $kirby->users()->findBy('emailActivationToken', $token)) {
+
+          if ($user->emailActivationToken()->toString() === Str::toType($token, 'string')) {
+
+            $user->update([
+              'emailActivation' => true
+            ]);
+
+            go();
+            //go('CUSTOM_SUCCESSFUL_ACTIVATION_PAGE');
+
+          }
+          else {
+            return false;
+            //go('CUSTOM_ERROR_ACTIVATION_PAGE');
+            //return page('CUSTOM_ERROR_ACTIVATION_PAGE');
+          }
+          
+        }
+
+        $kirby->impersonate(); 
+      }
+    ]
+  ],
+  'email' => [
+    'transport' => [
+      'type' => 'smtp',
+      'host' => '...',
+      'port' => 587,
+      'security' => 'tls',
+      'auth' => true,
+      'username' => '...',
+      'password' => '..'
     ]
   ]
 ];

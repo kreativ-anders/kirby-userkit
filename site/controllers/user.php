@@ -9,6 +9,12 @@ return function ($kirby, $page) {
   $error = null;
   $alert = null;
 
+  // CHECK ACCOUNT ACTIVATION
+  if(option('user.email.activation', false) === true && $kirby->user()->emailActivation()->toString() === '' || $kirby->user()->emailActivation() != true) {
+
+    $alert['error'] = 'Please check your emails to activate the account.';
+  }
+
   // UPDATE USER
   if($kirby->request()->is('post') && get('update')) {
 
@@ -43,6 +49,30 @@ return function ($kirby, $page) {
 
           $kirby->user()->changeEmail($data['email']);
           $success = 'Your email has been changed!';
+
+          // TOKEN FOR ACCOUNT RE-ACTIVATION
+          $token = Str::random(16);
+
+          $kirby->user()->update([
+            'emailActivation'       => false,
+            'emailActivationToken'  => $token
+          ]);
+
+          // ACTIVATE ACCOUNT BY EMAIL IF ENABLED
+          if (option('user.email.activation', false) === true) {
+
+            $link = $kirby->site()->url() . "/user/activate/" . $token;
+
+            $email = $kirby->email([
+              'to'       => $data['email'],
+              'from'     => option('user.email.activation.sender'),
+              'subject'  => option('user.email.activation.sender', 'Account Activation Link'),
+              'template' => 'account-activation',
+              'data'     => [
+                'link'   => $link,
+              ]
+            ]);
+          }
         
         } catch(Exception $e) {
         

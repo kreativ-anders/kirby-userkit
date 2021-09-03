@@ -9,6 +9,9 @@ return function ($kirby) {
   $error = null;
   $alert = null;
 
+  // TOKEN FOR ACCOUNT ACTIVATION
+  $token = Str::random(16);
+
 	if($kirby->request()->is('post') && get('register')) {
 
     $data = [
@@ -42,11 +45,20 @@ return function ($kirby) {
 
         // CREATE USER
         $user = $kirby->users()->create([
-          'email'     => $data['email'],
-          'role'      => 'user',
-          'language'  => 'en',
-          'password'  => $data['password']
+          'email'             => $data['email'],
+          'role'              => 'user',
+          'language'          => 'en',
+          'password'          => $data['password']
         ]);
+
+        // CHECK EMAIL ACTIVATION
+        if (option('user.email.activation', false) === true) {
+          
+          $user->update([
+            'emailActivation'       => false,
+            'emailActivationToken'  => $token
+          ]);
+        }
 
         $kirby->impersonate(); 
 
@@ -63,13 +75,29 @@ return function ($kirby) {
       }
 
       // SUCCESSFUL
-      if (empty($alert) === true) {
+      if (empty($alert) === true && $user) {
+
+        // ACTIVATE ACCOUNT BY EMAIL IF ENABLED
+        if (option('user.email.activation', false) === true) {
+
+          $link = $kirby->site()->url() . "/user/activate/" . $token;
+
+          $email = $kirby->email([
+            'to'       => $data['email'],
+            'from'     => option('user.email.activation.sender'),
+            'subject'  => option('user.email.activation.sender', 'Account Activation Link'),
+            'template' => 'account-activation',
+            'data'     => [
+              'link'   => $link,
+            ]
+          ]);
+        }
 
         // LOGIN USER
-        if($user and $user->login($data['password'])) {
+        if($user->login($data['password'])) {
           go();
-        }  
-
+        } 
+               
         $data = [];
       }
     }
