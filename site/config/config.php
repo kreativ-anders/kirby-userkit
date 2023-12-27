@@ -12,7 +12,7 @@ return [
   'panel' =>[
     'install' => true
   ],
-  'user.email.activation' => true,
+  'user.email.activation' => false,
   'user.email.activation.sender' => '...',
   'user.email.activation.subject' => 'Account Activation Link',
   'routes' => [
