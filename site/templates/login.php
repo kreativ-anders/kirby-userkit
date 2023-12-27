@@ -3,6 +3,9 @@
 <?php snippet('notification') ?>
 
 <form method="post" action="<?= $page->url() ?>">
+
+  <input type="hidden" name="csrf" value="<?= csrf() ?>">
+
   <fieldset>
     <legend><?= $page->title()->html() ?></legend>
 

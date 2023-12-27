@@ -6,6 +6,9 @@
 
 <form method="post" action="<?= $page->url() ?>">
   <fieldset>
+
+    <input type="hidden" name="csrf" value="<?= csrf() ?>">
+
     <legend><?= $data['email'] ?? $kirby->user()->email() ?></legend>
 
     <section>
@@ -32,6 +35,9 @@
 </p>
 
 <form method="post" action="<?= $page->url() ?>" onsubmit="return confirm('<?= $page->delete_warning()->html() ?>');">
+
+  <input type="hidden" name="csrf" value="<?= csrf() ?>">
+
   <fieldset>
     <legend><?=$page->danger()->html() ?></legend>
 

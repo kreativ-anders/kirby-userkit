@@ -18,101 +18,110 @@ return function ($kirby, $page) {
   // UPDATE USER
   if($kirby->request()->is('post') && get('update')) {
 
-    $data = [
-      'email'     => esc(get('email')),
-      'password'  => esc(get('password'))
-    ];
+    // VALIDATE CSRF TOKEN
+    if (csrf(get('csrf')) === true) {
 
-    $rules = [
-      'email'     => ['email'],
-      'password'  => ['minLength' => 8]
-    ];
+      // GET FORM DATA
+      $data = [
+        'email'     => esc(get('email')),
+        'password'  => esc(get('password'))
+      ];
 
-    $messages = [
-      'email'     => 'Please enter a valid email adress',
-      'password'  => 'Please enter an eight character password'
-    ];
+      $rules = [
+        'email'     => ['email'],
+        'password'  => ['minLength' => 8]
+      ];
 
-    // INVALID DATA
-    if($invalid = invalid($data, $rules, $messages)) {
+      $messages = [
+        'email'     => 'Please enter a valid email adress',
+        'password'  => 'Please enter an eight character password'
+      ];
 
-      $alert = $invalid;
-      $error = true;
+      // VALIDATE FORM DATA
+      if($invalid = invalid($data, $rules, $messages)) {
 
-    // VALID DATA
+        $alert = $invalid;
+        $error = true;
+
+      // VALID DATA
+      } else {
+
+        // EMAIL
+        if (V::email($data['email']) && !get('password')) {
+          
+          try {
+
+            $kirby->user()->changeEmail($data['email']);
+            $success = 'Your email has been changed!';
+
+            // TOKEN FOR ACCOUNT RE-ACTIVATION
+            $token = Str::random(16);
+
+            $kirby->user()->update([
+              'emailActivation'       => false,
+              'emailActivationToken'  => $token
+            ]);
+
+            // ACTIVATE ACCOUNT BY EMAIL IF ENABLED
+            if (option('user.email.activation', false) === true) {
+
+              $link = $kirby->site()->url() . "/user/activate/" . $token;
+
+              $email = $kirby->email([
+                'to'       => $data['email'],
+                'from'     => option('user.email.activation.sender'),
+                'subject'  => option('user.email.activation.sender', 'Account Activation Link'),
+                'template' => 'account-activation',
+                'data'     => [
+                  'link'   => $link,
+                ]
+              ]);
+            }
+          
+          } catch(Exception $e) {
+          
+            if(option('debug')) {
+
+              $alert['error'] = 'The user email could not be changed: ' . $e->getMessage();
+            }
+            else {
+    
+              $alert['error'] = 'The user email could not be changed!';
+            }
+          }
+        }
+
+        // PASSWORD
+        if ($data['password']) {
+          
+          try {
+
+            $kirby->user()->changePassword($data['password']);
+            $success = 'Your password has been changed!';
+          
+          } catch(Exception $e) {
+          
+            if(option('debug')) {
+
+              $alert['error'] = 'The user password could not be changed: ' . $e->getMessage();
+            }
+            else {
+    
+              $alert['error'] = 'The user password could not be changed!';
+            } 
+          }
+        }
+
+        // SUCCESSFUL
+        if (empty($alert) === true) {
+
+          $error = null;
+        }
+      } 
+    // INVALID CSRF TOKEN  
     } else {
 
-      // EMAIL
-      if (V::email($data['email']) && !get('password')) {
-        
-        try {
-
-          $kirby->user()->changeEmail($data['email']);
-          $success = 'Your email has been changed!';
-
-          // TOKEN FOR ACCOUNT RE-ACTIVATION
-          $token = Str::random(16);
-
-          $kirby->user()->update([
-            'emailActivation'       => false,
-            'emailActivationToken'  => $token
-          ]);
-
-          // ACTIVATE ACCOUNT BY EMAIL IF ENABLED
-          if (option('user.email.activation', false) === true) {
-
-            $link = $kirby->site()->url() . "/user/activate/" . $token;
-
-            $email = $kirby->email([
-              'to'       => $data['email'],
-              'from'     => option('user.email.activation.sender'),
-              'subject'  => option('user.email.activation.sender', 'Account Activation Link'),
-              'template' => 'account-activation',
-              'data'     => [
-                'link'   => $link,
-              ]
-            ]);
-          }
-        
-        } catch(Exception $e) {
-        
-          if(option('debug')) {
-
-            $alert['error'] = 'The user email could not be changed: ' . $e->getMessage();
-          }
-          else {
-  
-            $alert['error'] = 'The user email could not be changed!';
-          }
-        }
-      }
-
-      // PASSWORD
-      if ($data['password']) {
-        
-        try {
-
-          $kirby->user()->changePassword($data['password']);
-          $success = 'Your password has been changed!';
-        
-        } catch(Exception $e) {
-        
-          if(option('debug')) {
-
-            $alert['error'] = 'The user password could not be changed: ' . $e->getMessage();
-          }
-          else {
-  
-            $alert['error'] = 'The user password could not be changed!';
-          } 
-        }
-      }
-
-      // SUCCESSFUL
-      if (empty($alert) === true) {
-
-        $error = null;
-      }
+      $alert['error'] = 'Invalid CSRF token!';
     } 
   }
 
