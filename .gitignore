@@ -52,8 +52,7 @@ site/snippets/note.php
 site/snippets/pagination.php
 site/snippets/prevnext.php
 site/snippets/social.php
-
-
+site/snippets/image.php
 site/snippets/blocks
 
 site/templates/about.php
@@ -63,7 +62,6 @@ site/templates/home.php
 site/templates/note.php
 site/templates/notes.php
 site/templates/photography.php
-
 
 # System files
 # ------------
@@ -105,4 +103,3 @@ Icon
 # License
 # ---------------
 /site/config/.license
-site/snippets/image.php
