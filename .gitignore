@@ -9,8 +9,6 @@ composer.json
 
 assets
 
-kirby
-
 content/home
 content/1_photography
 content/2_notes
