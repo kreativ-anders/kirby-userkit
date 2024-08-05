@@ -10,7 +10,6 @@
   1.
   1.
 
-## Specifications
+## Idea
 
-  - Version:
-  - Platform:
+Any ideas already how to solve it?
