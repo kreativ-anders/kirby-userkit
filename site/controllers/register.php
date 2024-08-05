@@ -14,6 +14,12 @@ return function ($kirby) {
 
 	if($kirby->request()->is('POST') && get('register')) {
 
+    // CHECK HONEYPOT
+    if(empty(get('username')) === false) {
+      go('//localhost');
+      exit;
+    }
+
     // VALIDATE CSRF TOKEN
     if (csrf(get('csrf')) === true) {
 

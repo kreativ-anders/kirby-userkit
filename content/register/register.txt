@@ -6,6 +6,10 @@ Alert: Invalid email or password
 
 ----
 
+Honeypot: Username
+
+----
+
 Email: Email
 
 ----

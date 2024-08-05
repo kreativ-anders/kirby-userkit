@@ -9,6 +9,12 @@
   <fieldset>
     <legend><?= $page->title()->html() ?></legend>
 
+    <?php // HONEYPOT ?>
+    <section style="position: absolute; left: -9999px; z-index: -1">
+      <label for="username" aria-hidden="true"><?= $page->honeypot()->html() ?></label>
+      <input type="text" id="username" name="username" value="" tabindex="-1">
+    </section>
+
     <section>
       <label for="email"><?= $page->email()->html() ?></label>
       <input type="email" id="email" name="email" value="<?= $data['email'] ?? '' ?>" autocomplete="email" autofocus required>
