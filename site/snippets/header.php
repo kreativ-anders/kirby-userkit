@@ -51,6 +51,8 @@
 </head>
 <body>
 
+<?= e(option('debug'), " Kirby v" . Kirby::version() . " | PHP " . phpversion())?>
+
   <header class="header">
     <?php
     /*
