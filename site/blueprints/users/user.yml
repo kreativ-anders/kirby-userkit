@@ -1,4 +1,12 @@
 title: User
+
 permissions:
   access:
     panel: false
+
+fields:
+  info:
+    label: Info
+    type: info
+    theme: passive
+    text: "User was last modified on {{ user.modified('l, d. M  Y — g:i a') }}"
