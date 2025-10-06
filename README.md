@@ -43,7 +43,7 @@ IMHO a Plug-in does not make sense due to interoperability. Also this kind of Ad
 - Set `user.email.activation` config to true (default false).
 - Set `user.email.activation.sender` config email sender (mandatory when email activation is enabled).
 - Set `user.email.activation.subject` config email subject (mandatory when email activation is enabled).
-- Change activation token length in `register.php` controller (default 12).
+- Change activation token length in `register.php` controller (default 16).
 
 ## Notes:
 This Add-On is built for Kirby CMS based on **Kirby´s Starterkit Version 4.0.2**. 
