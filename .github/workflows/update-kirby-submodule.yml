@@ -1,0 +1,60 @@
+name: Update Kirby Submodule
+
+on:
+  schedule:
+    # Run weekly on Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-submodule:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Update Kirby submodule
+        id: update
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          cd kirby
+          git fetch origin
+          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          
+          echo "Latest Kirby version: $LATEST_TAG"
+          git checkout $LATEST_TAG
+          
+          cd ..
+          git add kirby
+          
+          if git diff --cached --quiet; then
+            echo "No updates available"
+            echo "updated=false" >> $GITHUB_OUTPUT
+          else
+            echo "Updates available"
+            echo "updated=true" >> $GITHUB_OUTPUT
+            echo "version=$LATEST_TAG" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Pull Request
+        if: steps.update.outputs.updated == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Update Kirby submodule to ${{ steps.update.outputs.version }}'
+          branch: update-kirby-submodule
+          delete-branch: true
+          title: 'Update Kirby submodule to ${{ steps.update.outputs.version }}'
+          body: |
+            This automated PR updates the Kirby CMS submodule to the latest version.
+            
+            **New version:** ${{ steps.update.outputs.version }}
+            
+            Please review the [Kirby changelog](https://github.com/getkirby/kirby/releases) before merging.
+          labels: dependencies, automated
