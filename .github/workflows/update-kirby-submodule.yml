@@ -2,59 +2,64 @@ name: Update Kirby Submodule
 
 on:
   schedule:
-    # Run weekly on Monday at 00:00 UTC
-    - cron: '0 0 * * 1'
-  workflow_dispatch: # Allow manual trigger
+    - cron: '0 6 1 * *'  # Monthly on 1st at 06:00 UTC
+  workflow_dispatch:
 
 jobs:
-  update-submodule:
+  update-kirby:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          submodules: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Update Kirby submodule
-        id: update
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Configure Git (main + submodule)
         run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           cd kirby
-          git fetch origin
-          LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-          
-          echo "Latest Kirby version: $LATEST_TAG"
-          git checkout $LATEST_TAG
-          
-          cd ..
-          git add kirby
-          
-          if git diff --cached --quiet; then
-            echo "No updates available"
-            echo "updated=false" >> $GITHUB_OUTPUT
-          else
-            echo "Updates available"
-            echo "updated=true" >> $GITHUB_OUTPUT
-            echo "version=$LATEST_TAG" >> $GITHUB_OUTPUT
-          fi
-      
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          cd -
+
+      - name: Get previous kirby tag
+        id: previous
+        run: |
+          cd kirby
+          git fetch --tags
+          prev_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          echo "prev_tag=$prev_tag" >> $GITHUB_OUTPUT
+
+      - name: Update kirby submodule
+        run: |
+          git submodule update --remote --checkout kirby
+
+      - name: Get latest kirby tag after update
+        id: latest
+        run: |
+          cd kirby
+          git fetch --tags
+          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          echo "latest_tag=$latest_tag" >> $GITHUB_OUTPUT
+
+      - name: Skip if no tag or no change
+        if: steps.latest.outputs.latest_tag == '' || steps.latest.outputs.latest_tag == steps.previous.outputs.prev_tag
+        run: |
+          echo "No new tag or tag unchanged — skipping PR creation."
+          exit 0
+
       - name: Create Pull Request
-        if: steps.update.outputs.updated == 'true'
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: 'Update Kirby submodule to ${{ steps.update.outputs.version }}'
-          branch: update-kirby-submodule
-          delete-branch: true
-          title: 'Update Kirby submodule to ${{ steps.update.outputs.version }}'
+          commit-message: "chore: update kirby to ${{ steps.latest.outputs.latest_tag }}"
+          title: "Update kirby submodule to ${{ steps.latest.outputs.latest_tag }}"
           body: |
-            This automated PR updates the Kirby CMS submodule to the latest version.
-            
-            **New version:** ${{ steps.update.outputs.version }}
-            
-            Please review the [Kirby changelog](https://github.com/getkirby/kirby/releases) before merging.
-          labels: dependencies, automated
+            This PR updates the `kirby` submodule from **${{ steps.previous.outputs.prev_tag }}** to **${{ steps.latest.outputs.latest_tag }}**.
+
+            🔍 [View changes on GitHub](https://github.com/getkirby/kirby/compare/${{ steps.previous.outputs.prev_tag }}...${{ steps.latest.outputs.latest_tag }})
+
+          branch: "update-kirby-submodule"
+          delete-branch: true
