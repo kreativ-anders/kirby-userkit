@@ -23,8 +23,8 @@ return function ($kirby, $page) {
 
       // GET FORM DATA
       $data = [
-        'email'     => esc(get('email')),
-        'password'  => esc(get('password'))
+        'email'     => get('email'),
+        'password'  => get('password')
       ];
 
       $rules = [
@@ -70,7 +70,7 @@ return function ($kirby, $page) {
               $email = $kirby->email([
                 'to'       => $data['email'],
                 'from'     => option('user.email.activation.sender'),
-                'subject'  => option('user.email.activation.sender', 'Account Activation Link'),
+                'subject'  => option('user.email.activation.subject', 'Account Activation Link'),
                 'template' => 'account-activation',
                 'data'     => [
                   'link'   => $link,

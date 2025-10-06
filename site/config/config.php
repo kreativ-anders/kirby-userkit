@@ -47,11 +47,13 @@ return [
               'emailActivation' => true
             ]);
 
+            $kirby->impersonate();
             go();
             //go('CUSTOM_SUCCESSFUL_ACTIVATION_PAGE');
 
           }
           else {
+            $kirby->impersonate();
             return false;
             //go('CUSTOM_ERROR_ACTIVATION_PAGE');
             //return page('CUSTOM_ERROR_ACTIVATION_PAGE');

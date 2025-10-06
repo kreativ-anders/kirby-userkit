@@ -16,8 +16,8 @@ return function ($kirby) {
 
       // GET FORM DATA
       $data = [
-        'email'     => esc(get('email')),
-        'password'  => esc(get('password'))
+        'email'     => get('email'),
+        'password'  => get('password')
       ];
 
       $rules = [

@@ -25,8 +25,8 @@ return function ($kirby) {
 
       // GET FORM DATA
       $data = [
-        'email'     => esc(get('email')),
-        'password'  => esc(get('password'))
+        'email'     => get('email'),
+        'password'  => get('password')
       ];
   
       $rules = [
@@ -69,8 +69,6 @@ return function ($kirby) {
             ]);
           }
 
-          $kirby->impersonate(); 
-
         } catch(Exception $e) {
 
           if(option('debug')) {
@@ -83,6 +81,8 @@ return function ($kirby) {
           }
         }
 
+        $kirby->impersonate();
+
         // SUCCESSFUL
         if (empty($alert) === true && $user) {
 
@@ -94,7 +94,7 @@ return function ($kirby) {
             $email = $kirby->email([
               'to'       => $data['email'],
               'from'     => option('user.email.activation.sender'),
-              'subject'  => option('user.email.activation.sender', 'Account Activation Link'),
+              'subject'  => option('user.email.activation.subject', 'Account Activation Link'),
               'template' => 'account-activation',
               'data'     => [
                 'link'   => $link,
