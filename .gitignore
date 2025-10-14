@@ -1,11 +1,10 @@
-# This is a Kirby User Management Add-On! 
+# This is a Kirby User Management Plugin! 
 # (Based on Kirby´s Starterkit)
 # ------------
 
-index.php
+/index.php
 favicon.ico
 .htaccess
-composer.json
 
 assets
 
