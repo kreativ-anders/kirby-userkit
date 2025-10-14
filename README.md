@@ -32,6 +32,8 @@ Short answer: **Simplicity and Privacy**. An individual solution like this keeps
 
 ## Installation
 
+> **Note:** If you're upgrading from the add-on version, please see the [CHANGELOG.md](CHANGELOG.md) for migration instructions.
+
 ### Option 1: Git Submodule (Recommended)
 ```bash
 cd /path/to/your/kirby-project
