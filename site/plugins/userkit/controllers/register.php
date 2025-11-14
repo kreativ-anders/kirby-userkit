@@ -61,7 +61,7 @@ return function ($kirby) {
           ]);
 
           // CHECK EMAIL ACTIVATION
-          if (option('user.email.activation', false) === true) {
+          if (option('kreativ-anders.userkit.user.email.activation', false) === true) {
             
             $user->update([
               'emailActivation'       => false,
@@ -87,14 +87,14 @@ return function ($kirby) {
         if (empty($alert) === true && $user) {
 
           // ACTIVATE ACCOUNT BY EMAIL IF ENABLED
-          if (option('user.email.activation', false) === true) {
+          if (option('kreativ-anders.userkit.user.email.activation', false) === true) {
 
             $link = $kirby->site()->url() . "/user/activate/" . $token;
 
             $email = $kirby->email([
               'to'       => $data['email'],
-              'from'     => option('user.email.activation.sender'),
-              'subject'  => option('user.email.activation.subject', 'Account Activation Link'),
+              'from'     => option('kreativ-anders.userkit.user.email.activation.sender'),
+              'subject'  => option('kreativ-anders.userkit.user.email.activation.subject', 'Account Activation Link'),
               'template' => 'account-activation',
               'data'     => [
                 'link'   => $link,

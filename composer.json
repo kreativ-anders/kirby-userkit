@@ -1,0 +1,25 @@
+{
+  "name": "kreativ-anders/kirby-userkit",
+  "description": "A functional, lean, and unstyled Kirby User Management Plugin for Kirby CMS",
+  "version": "1.0.0",
+  "type": "kirby-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "kreativ-anders"
+    }
+  ],
+  "keywords": [
+    "kirby",
+    "kirby-plugin",
+    "user-management",
+    "registration",
+    "authentication"
+  ],
+  "require": {
+    "getkirby/composer-installer": "^1.2"
+  },
+  "extra": {
+    "installer-name": "userkit"
+  }
+}

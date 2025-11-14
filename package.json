@@ -1,0 +1,23 @@
+{
+  "name": "@kreativ-anders/kirby-userkit",
+  "version": "1.0.0",
+  "description": "A functional, lean, and unstyled Kirby User Management Plugin for Kirby CMS",
+  "main": "site/plugins/userkit/index.php",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kreativ-anders/kirby-userkit.git"
+  },
+  "keywords": [
+    "kirby",
+    "kirby-plugin",
+    "user-management",
+    "registration",
+    "authentication"
+  ],
+  "author": "kreativ-anders",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kreativ-anders/kirby-userkit/issues"
+  },
+  "homepage": "https://github.com/kreativ-anders/kirby-userkit#readme"
+}
