@@ -1,6 +1,6 @@
 <?php snippet('header') ?>
 <?php snippet('intro') ?>
-<?php snippet('notification') ?>
+<?php snippet('userkit/notification') ?>
 
 <?= $success ?? '' ?>
 
